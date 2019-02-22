@@ -1,6 +1,8 @@
 # OpenFoodFacts
 The goal is to create an interactive program connected to the database Open Food Facts. It can gather food products, compare them and recommand a healthier substitute to the user. The app will be created for french consumers only.
 
+The database will be displayed on the commande prompt and user can choose the action he wants by typing a number.
+
 ## Specifications
 
 The user is on terminal. The following choices are displayed:
@@ -14,12 +16,14 @@ you'll have choice between several options.
 Program proposals are a substitute of the product with its description, a store to buy it, a link to the page Open Food Facts concerning the substitute.
 The user can save the result to the database.
 
-##Functions
+## Functions
 
 Product search in the database Open Food Facts.
 User interact with the program through the terminal.
 If user's input is other than a number, the program repeats the question.
 The search is based on database Mysql.
+
+
 
 How to use it ?
 
