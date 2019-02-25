@@ -63,7 +63,12 @@ elif choice == 2:
   if res2 == []:
     print("Il n'y a aucun produit alternatif. \n")
 
-r = req.get('https://fr.openfoodfacts.org/category/pizzas.json')
+r = req.get('https://fr.openfoodfacts.org/category/pizzas/6.json')
+
+response_data = r.json()
+for products in response_data['products']:
+  print(products['product_name'], products['ingredients_text_fr'], products['stores'],"'", products['nutrition_grade_fr'],"'", products['url'] )
+    
 
 conn.commit()
 conn.close()
