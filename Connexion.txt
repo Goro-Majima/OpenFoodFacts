@@ -1,0 +1,132 @@
+https://openclassrooms.com/fr/courses/1959476-administrez-vos-bases-de-donnees-avec-mysql/1959969-installez-mysql#/id/r-1977637
+
+set PATH=%PATH%;C:\"Program Files"\MySQL\"MySQL Server 8.0"\bin
+
+mysql -h localhost -u root -p
+
+mysql -u student -p --default-character-set=utf8
+
+SOURCE C:/Users\Alex Tour/OpenFoodFacts/scriptstables.sql
+
+(1 seule fois)CREATE USER 'student'@'localhost' IDENTIFIED BY 'mot_de_passe';
+GRANT ALL PRIVILEGES ON pure_beurre.* TO 'student'@'localhost';
+
+mysql -u student -p
+
+----------------------------------------
+AUTO INCREMENT STARTS AT 1
+
+ALTER TABLE Category AUTO_INCREMENT=1
+ALTER TABLE Product AUTO_INCREMENT=1
+ALTER TABLE Substiture AUTO_INCREMENT=1
+
+CREATE TABLE
+ALTER TABLE
+CHANGE \ MODIFY
+AUTO_INCREMENT
+
+--------------------------------------
+Alternative à INSERT INTO ____ VALUES; :
+
+INSERT INTO Animal 
+SET nom='Bobo', espece='chien', sexe='M', date_naissance='2010-07-21 15:41:00';
+---------------------------------------
+Tout selectionner et voir:
+
+SELECT * FROM *******;
+
+---------------------------------------
+SAUVEGARDE
+
+mysqldump -u sdz -p --opt elevage > elevage_sauvegarde.sql
+
+-------------------------------------
+DELETE 
+
+DELETE FROM Animal 
+WHERE nom = 'Zoulou';
+
+
+
+SHOW VARIABLES where Variable_name = 'local_infile';
+
+LOAD DATA LOCAL INFILE 'C:/PythonX/animal.csv'
+INTO TABLE Animal
+FIELDS TERMINATED BY ';' ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+(espece, sexe, date_naissance, nom, commentaires);
+
+
+<=> NULL
+IS NULL
+
+SELECT DISTINCT 
+
+----------------------------------------
+Cle etrangere
+
+mysql> ALTER TABLE Animal
+    -> ADD COLUMN mere_id SMALLINT UNSIGNED;
+
+
+mysql> ALTER TABLE Animal
+    -> ADD CONSTRAINT fk_mere_id FOREIGN KEY(mere_id) REFERENCES Animal(id);
+
+-----------------------------------------------
+Jointures
+
+SELECT e.id,                  
+       e.description,          
+       a.nom                   
+FROM Espece AS e          -- On donne l'alias "e" à Espece
+INNER JOIN Animal AS a    -- et l'alias "a" à Animal.
+     ON e.id = a.espece_id
+WHERE a.nom LIKE 'Ch%';
+
+---------------------------------------------
+AUTO JOINTURE
+
+SELECT Animal.nom, Pere.nom AS Papa, Mere.nom AS Maman
+FROM Animal
+INNER JOIN Animal AS Pere
+    ON Animal.pere_id = Pere.id
+INNER JOIN Animal AS Mere
+    ON Animal.mere_id = Mere.id
+INNER JOIN Espece
+    ON Animal.espece_id = Espece.id
+WHERE Espece.nom_courant = 'chat';
+
+---------------------------------------------
+SOUS REQUETE 
+
+SELECT id, nom, espece_id
+FROM Animal
+WHERE espece_id IN (
+    SELECT id 
+    FROM Espece
+    WHERE nom_courant IN ('Tortue d''Hermann', 'Perroquet amazone')
+);
+
+UTILISATTION DE ANY OU ALL
+
+-----------------------------------------------
+Suppression avec jointures 
+
+DELETE Animal   -- Je précise de quelles tables les données doivent être supprimées
+FROM Animal     -- Table principale
+INNER JOIN Espece ON Animal.espece_id = Espece.id    
+    -- Jointure     
+WHERE Animal.nom = 'Carabistouille' 
+    AND Espece.nom_courant = 'Chat';
+
+-----------------------------------------------
+
+UNION = UNION DISTINCT
+
+Pour conserver doublon ---> UNION ALL
+
+--------------------------------------------------
+Retour en arrière 
+
+ROLLBACK;
+

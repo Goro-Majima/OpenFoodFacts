@@ -5,9 +5,9 @@ import requests as req
 import json
 from constants import *
 from classes import *
+from database_init import *
 from mysql.connector import errorcode
-
-# r= req.get('https://fr.openfoodfacts.org/category/pizzas.json')
+#from connexion import *
 
 
 try:
@@ -31,7 +31,7 @@ while choice != 1 and choice != 2:
   choice = int(input("TAPEZ 1 OU 2:"))
 if choice == 1:
   print("Veuillez patienter...")
-  print("Quelle catégorie d'aliments ?  choix: ")
+  print("Quelle catégorie d'aliments ? ")
   sql0 = """SELECT * FROM Category"""
   cursor.execute(sql0)
   res = cursor.fetchall()
@@ -63,12 +63,9 @@ elif choice == 2:
   if res2 == []:
     print("Il n'y a aucun produit alternatif. \n")
 
-r = req.get('https://fr.openfoodfacts.org/category/pizzas/6.json')
-
-response_data = r.json()
-for products in response_data['products']:
-  print(products['product_name'], products['ingredients_text_fr'], products['stores'],"'", products['nutrition_grade_fr'],"'", products['url'] )
-    
+newdatabase = DatabaseP()
+#newdatabase.fill_table_category()
+newdatabase.fill_table_product()
 
 conn.commit()
 conn.close()
