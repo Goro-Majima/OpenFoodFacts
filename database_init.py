@@ -39,7 +39,7 @@ class DatabaseP:
         r = req.get(url)
         response_data = r.json()
         for products in response_data['products']:
-          if count < 100:  
+          if count < 50:  
             if 'product_name' in products:
               if 'stores' in products:
                 if 'nutrition_grade_fr' in products:

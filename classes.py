@@ -29,14 +29,25 @@ class DisplayDB:
       print("Veuillez patienter...")
       print("Quelle catégorie d'aliments ? ")
       for i in range(1,21):
-        sql0 = """SELECT * FROM Category WHERE idCategory = (%s)"""
-        cursor.execute(sql0,(i,))
-        res = cursor.fetchall()
-        print(res)
+        categList = """SELECT idCategory, name_category FROM Category WHERE idCategory = (%s)"""
+        cursor.execute(categList,(i,))
+        catList = cursor.fetchall()
+        print(catList)
     
-    # def ShowProducts(self):
-    #   print('Liste des produits de la catégorie: \n')
-    #   sql1 = ("""SELECT * FROM Product WHERE Category_idCategory = (%s)""")
-    #   cursor.execute(sql1, (categ,))
-    #   res1 = cursor.fetchall()
-    #   print(res1)
+    def ShowProducts(self,categ):
+      print('Liste des produits de la catégorie: \n')
+      productList = ("""SELECT idproduct, product_name FROM Product WHERE Category_id = (%s)""")
+      cursor.execute(productList, (categ,))
+      productListrequest = cursor.fetchall()
+      indexproduct = 0
+      for i in productListrequest:
+        print(productListrequest[indexproduct])
+        indexproduct = indexproduct + 1
+
+    def ShowProductdetails(self,whichproduct):
+      productDetails = ("""SELECT * FROM Product WHERE idproduct = (%s)""")
+      cursor.execute(productDetails, (whichproduct,))
+      productDetailsRow = cursor.fetchall()
+      print(productDetailsRow)
+
+      

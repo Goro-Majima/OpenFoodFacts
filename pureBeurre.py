@@ -30,26 +30,24 @@ while choice != 1 and choice != 2:
   user.Choices()
   choice = int(input("TAPEZ 1 OU 2:"))
 if choice == 1:
+  # User wants to see the category list
   display = DisplayDB()
   display.ShowCategory() 
 
   print("")  
   categ = -1
-  while categ < 0 or categ >= 20:
-    categ = int(input("Choix de la categorie, un nombre entre 1 et 20:  \n"))
+  while categ < 0 or categ > 20:
+    # User choose which category
+    categ = int(input("Sélectionnez la catégorie:  \n"))
   
   print("")
-  print('Liste des produits de la catégorie: \n')
-  sql1 = ("""SELECT * FROM Product WHERE Category_idCategory = (%s)""")
-  cursor.execute(sql1, (categ,))
-  res1 = cursor.fetchall()
-  print(res1)
-  print("")
-
   
-  whichproduct = int(input("Choisissez l'id du produit à remplacer:  \n"))
+  display.ShowProducts(categ)
 
-  #retrieve and recommend a similar product with a better nutrition grade
+  print("")  
+  whichproduct = int(input("Sélectionnez l'aliment à remplacer:  \n"))
+  print("Souhaitez-vous trouver un substitut à ce produit ? \n")
+  display.ShowProductdetails(whichproduct)
 
 
 elif choice == 2:
@@ -60,8 +58,9 @@ elif choice == 2:
     print("Il n'y a aucun produit alternatif. \n")
 
 newdatabase = DatabaseP()
+""" Already filled"""
 #newdatabase.fill_table_category()
-newdatabase.fill_table_product()
+#newdatabase.fill_table_product()
 
 conn.commit()
 conn.close()
