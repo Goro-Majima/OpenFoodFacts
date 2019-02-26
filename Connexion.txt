@@ -4,9 +4,8 @@ set PATH=%PATH%;C:\"Program Files"\MySQL\"MySQL Server 8.0"\bin
 
 mysql -h localhost -u root -p
 
-mysql -u student -p --default-character-set=utf8
-
-SOURCE C:/Users\Alex Tour/OpenFoodFacts/scriptstables.sql
+mysql -u student -p --default-character-set=utf
+SOURCE C:/Users/Jiomod/OpenFoodFacts/scriptstables.sql
 
 (1 seule fois)CREATE USER 'student'@'localhost' IDENTIFIED BY 'mot_de_passe';
 GRANT ALL PRIVILEGES ON pure_beurre.* TO 'student'@'localhost';

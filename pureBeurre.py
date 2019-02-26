@@ -30,17 +30,13 @@ while choice != 1 and choice != 2:
   user.Choices()
   choice = int(input("TAPEZ 1 OU 2:"))
 if choice == 1:
-  print("Veuillez patienter...")
-  print("Quelle catégorie d'aliments ? ")
-  sql0 = """SELECT * FROM Category"""
-  cursor.execute(sql0)
-  res = cursor.fetchall()
-  print(res)
-  print("")
+  display = DisplayDB()
+  display.ShowCategory() 
 
+  print("")  
   categ = -1
   while categ < 0 or categ >= 20:
-    categ = int(input("Choix de la categorie entre 1 et 10:  \n"))
+    categ = int(input("Choix de la categorie, un nombre entre 1 et 20:  \n"))
   
   print("")
   print('Liste des produits de la catégorie: \n')
