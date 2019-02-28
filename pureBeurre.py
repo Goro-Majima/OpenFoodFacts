@@ -44,11 +44,28 @@ if choice == 1:
   
   display.ShowProducts(categ)
 
-  print("")  
+  print("")
+  # Put an error message if input different than product list 
+  # loop with verification from database 
   whichproduct = int(input("Sélectionnez l'aliment à remplacer:  \n"))
-  print("Souhaitez-vous trouver un substitut à ce produit ? \n")
+  print("")
+  print("Votre sélection: ")
   display.ShowProductdetails(whichproduct)
 
+  print("")
+  print("-----------------------------------------------------------")
+  print("Produit alternatif: ")
+  print("")
+
+  display.ShowAlternative(categ)
+  print("")
+
+  favorite = input("Souhaitez-vous ajouter cet aliment à vos favoris ? O/N ")
+  if favorite == 'O':
+    insertit = ("""INSERT INTO Substitute...""")
+    #alter table susbstitute modify auto_increment
+
+  
 
 elif choice == 2:
   sql2 = ("""SELECT * FROM Substitute""")
