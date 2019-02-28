@@ -49,7 +49,9 @@ if choice == 1:
   # loop with verification from database 
   whichproduct = int(input("Sélectionnez l'aliment à remplacer:  \n"))
   print("")
+  print("-----------------------------------------------------------")
   print("Votre sélection: ")
+  print("")
   display.ShowProductdetails(whichproduct)
 
   print("")
@@ -62,7 +64,7 @@ if choice == 1:
 
   favorite = input("Souhaitez-vous ajouter cet aliment à vos favoris ? O/N ")
   if favorite == 'O':
-    insertit = ("""INSERT INTO Substitute...""")
+    print('ok')
     #alter table susbstitute modify auto_increment
 
   

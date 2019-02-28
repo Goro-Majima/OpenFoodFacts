@@ -49,18 +49,27 @@ class DisplayDB:
       productDetails = ("""SELECT product_name, nutriscore, store, url FROM Product WHERE idproduct = (%s)""")
       cursor.execute(productDetails, (whichproduct,))
       productDetailsRow = cursor.fetchall()
-      print(productDetailsRow)
+      info = ["Référence: ", "Produit: ", "Nutrigrade: ", "Où l'acheter: ", "URL: "]
+      counterRow = 0
+      for productRow in productDetailsRow:
+        for row in productRow:
+          print(info[counterRow], row)
+          counterRow = counterRow + 1
       
     def ShowAlternative(self, categ):
-      substituteP = ("""SELECT product_name, nutriscore, store, url FROM Product WHERE Category_id = (%s) AND nutriscore = 'A' or 'a'""")
+      substituteP = ("""SELECT idProduct, product_name, nutriscore, store, url FROM Product WHERE Category_id = (%s) AND nutriscore = 'A' or 'a'""")
       cursor.execute(substituteP, (categ, ))
       substituteDetails = cursor.fetchall()
       if substituteDetails == []:
-        substituteP = ("""SELECT product_name, nutriscore, store, url FROM Product WHERE Category_id = (%s) AND nutriscore = 'B' OR 'b'""")
+        substituteP = ("""SELECT idProduct, product_name, nutriscore, store, url FROM Product WHERE Category_id = (%s) AND nutriscore = 'B' OR 'b'""")
         cursor.execute(substituteP, (categ, ))
         substituteDetails = cursor.fetchall()
-      randomAlternative = random.randint(0, len(substituteDetails))
-      print(substituteDetails[randomAlternative])
+      randomAlternative = random.randint(0, len(substituteDetails)-1)
+      info = ["Référence: ", "Produit: ", "Nutrigrade: ", "Où l'acheter: ", "URL: "]
+      counter = 0
+      for productrow in substituteDetails[randomAlternative]:
+        print(info[counter], productrow)
+        counter = counter + 1
       
 # class UpdateDB:
 #   def insertAlternative():
