@@ -35,13 +35,14 @@ class DatabaseP:
             if 'product_name' in products:
               if 'stores' in products:
                 if 'nutrition_grade_fr' in products:
-                  if 'url' in products:    
-                    productload = """INSERT INTO Product(product_name, nutriscore, store, text, url, category_id) \
+                  if 'ingredients_text_debug' in products:
+                    if 'url' in products:    
+                      productload = """INSERT INTO Product(product_name, nutriscore, store, ingredients, url, category_id) \
                         VALUES ( %s,%s,%s,%s,%s,%s) """ 
-                    #print(products['product_name'], "store: ", products['stores'],"'", products['nutrition_grade_fr'],"'", products['url'] )
-                    cursor.execute(productload,(products['product_name'],products['nutrition_grade_fr'],products['stores'],products['ingredients_text_fr'], products['url'], idcat))
-                    conn.commit()
-                    count = count + 1 
-                    print(count)
+                      #print(products['product_name'], "store: ", products['stores'],"'", products['nutrition_grade_fr'],"'", products['url'] )
+                      cursor.execute(productload, (products['product_name'], products['nutrition_grade_fr'], products['stores'], products['ingredients_text_debug'], products['url'], idcat))
+                      conn.commit()
+                      count = count + 1 
+                      print(count)
       idcat = idcat + 1
       print(idcat)                 

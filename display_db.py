@@ -47,10 +47,10 @@ class DisplayDB:
         indexproduct = indexproduct + 1
 
     def ShowProductdetails(self, whichproduct):
-      productDetails = ("""SELECT idproduct, product_name, nutriscore, store, url FROM Product WHERE idproduct = (%s)""")
+      productDetails = ("""SELECT idproduct, product_name, nutriscore, store, ingredients, url FROM Product WHERE idproduct = (%s)""")
       cursor.execute(productDetails, (whichproduct,))
       productDetailsRow = cursor.fetchall()
-      info = ["Référence: ", "Produit: ", "Nutrigrade: ", "Où l'acheter: ", "URL: "]
+      info = ["Référence: ", "Produit: ", "Nutrigrade: ", "Où l'acheter: ","Ingredients: ", "URL: "]
       counterRow = 0
       for productRow in productDetailsRow:
         for row in productRow:
@@ -58,15 +58,15 @@ class DisplayDB:
           counterRow = counterRow + 1
       
     def ShowAlternative(self, categ):
-      substituteP = ("""SELECT idProduct, product_name, nutriscore, store, url FROM Product WHERE Category_id = (%s) AND nutriscore = 'A' or 'a'""")
+      substituteP = ("""SELECT idProduct, product_name, nutriscore, store,ingredients, url FROM Product WHERE Category_id = (%s) AND nutriscore = 'A' or 'a'""")
       cursor.execute(substituteP, (categ, ))
       substituteDetails = cursor.fetchall()
       if substituteDetails == []:
-        substituteP = ("""SELECT idProduct, product_name, nutriscore, store, url FROM Product WHERE Category_id = (%s) AND nutriscore = 'B' OR 'b'""")
+        substituteP = ("""SELECT idProduct, product_name, nutriscore, store, ingredients, url FROM Product WHERE Category_id = (%s) AND nutriscore = 'B' OR 'b'""")
         cursor.execute(substituteP, (categ, ))
         substituteDetails = cursor.fetchall()
       randomAlternative = random.randint(0, len(substituteDetails)-1)
-      info = ["Référence: ", "Produit: ", "Nutrigrade: ", "Où l'acheter: ", "URL: "]
+      info = ["Référence: ", "Produit: ", "Nutrigrade: ", "Où l'acheter: ","Ingredients: ", "URL: "]
       counter = 0
       for productrow in substituteDetails[randomAlternative]:
         print(info[counter], productrow)
