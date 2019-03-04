@@ -1,7 +1,10 @@
+import mysql.connector
+from mysql.connector import errorcode
+
 
 class Connect:
 
-  def connecttoDB():
+  def connecttoDB(self):
     try:
       conn = mysql.connector.connect(host = "localhost", user = "student", password = "mot_de_passe", database = "pure_beurre")
     except mysql.connector.Error as err:

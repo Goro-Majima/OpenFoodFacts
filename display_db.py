@@ -1,7 +1,7 @@
 import mysql.connector
 import requests as req
-from constants import *
 import random
+from constants import *
 
 try:
   conn = mysql.connector.connect(host = "localhost", user = "student", password = "mot_de_passe", database = "pure_beurre")
@@ -33,7 +33,8 @@ class DisplayDB:
         categList = """SELECT idCategory, name_category FROM Category WHERE idCategory = (%s)"""
         cursor.execute(categList,(i,))
         catList = cursor.fetchall()
-        print(catList)
+        for detailCat in catList:
+          print(detailCat[0], "-", detailCat[1])
     
     def ShowProducts(self,categ):
       print('Liste des produits de la catégorie: \n')
@@ -42,11 +43,11 @@ class DisplayDB:
       productListrequest = cursor.fetchall()
       indexproduct = 0
       for i in productListrequest:
-        print(productListrequest[indexproduct])
+        print(productListrequest[indexproduct][0], "-", productListrequest[indexproduct][1])
         indexproduct = indexproduct + 1
 
     def ShowProductdetails(self, whichproduct):
-      productDetails = ("""SELECT product_name, nutriscore, store, url FROM Product WHERE idproduct = (%s)""")
+      productDetails = ("""SELECT idproduct, product_name, nutriscore, store, url FROM Product WHERE idproduct = (%s)""")
       cursor.execute(productDetails, (whichproduct,))
       productDetailsRow = cursor.fetchall()
       info = ["Référence: ", "Produit: ", "Nutrigrade: ", "Où l'acheter: ", "URL: "]
@@ -70,7 +71,4 @@ class DisplayDB:
       for productrow in substituteDetails[randomAlternative]:
         print(info[counter], productrow)
         counter = counter + 1
-      
-# class UpdateDB:
-#   def insertAlternative():
     

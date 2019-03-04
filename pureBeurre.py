@@ -4,31 +4,24 @@ import mysql.connector
 import requests as req
 import json
 from constants import *
-from classes import *
+from display_db import *
 from database_init import *
-from mysql.connector import errorcode
-#from connexion import *
+from connexion import *
 
-
-try:
-  conn = mysql.connector.connect(host = "localhost", user = "student", password = "mot_de_passe", database = "pure_beurre")
-except mysql.connector.Error as err:
-  if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
-    print("Something is wrong with your user name or password")
-  elif err.errno == errorcode.ER_BAD_DB_ERROR:
-    print("Database does not exist")
-  else:
-    print(err)
-
-cursor = conn.cursor()
+connect = Connect()
+connect.connecttoDB()
 
 user = UserIntro()
 user.Introduction()
 user.Choices()
-choice = int(input("Veuillez choisir entre ces deux requêtes:"))
+
+choice = 0
 while choice != 1 and choice != 2:
-  user.Choices()
-  choice = int(input("TAPEZ 1 OU 2:"))
+  try:
+    choice = int(input("Veuillez choisir entre requête 1 ou 2:"))
+  except ValueError:
+    print("Mauvaise commande, choisir 1 ou 2")
+
 if choice == 1:
   # User wants to see the category list
   display = DisplayDB()
@@ -38,8 +31,10 @@ if choice == 1:
   categ = -1
   while categ < 0 or categ > 20:
     # User choose which category
-    categ = int(input("Sélectionnez la catégorie:  \n"))
-  
+    try:
+      categ = int(input("Sélectionnez la catégorie entre 1 et 20:  \n"))
+    except ValueError:
+      print("Mauvaise commande, choisir entre 1 et 20")
   print("")
   
   display.ShowProducts(categ)
@@ -47,7 +42,14 @@ if choice == 1:
   print("")
   # Put an error message if input different than product list 
   # loop with verification from database 
-  whichproduct = int(input("Sélectionnez l'aliment à remplacer:  \n"))
+  whichproduct = 0
+  while whichproduct < (categ * 50) -49 or whichproduct > categ * 50:
+    try:
+      whichproduct = int(input("Sélectionnez l'aliment à remplacer dans sa catégorie:  \n"))
+      print("")
+    except ValueError:
+      print("Mauvaise commande, choisir aliment")
+      print("")
   print("")
   print("-----------------------------------------------------------")
   print("Votre sélection: ")
