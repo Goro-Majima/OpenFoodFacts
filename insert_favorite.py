@@ -17,5 +17,10 @@ except mysql.connector.Error as err:
 
 cursor = conn.cursor()
 
-
+class Substitution:
+  def insertdb(self,element):
+    # insertit = ("""INSERT INTO Substitute(product_id) VALUES (%s)""")
+    # cursor.execute(insertit, (substituteDetails[randomAlternative],))
+    # conn.commit()
+    print(substituteDetails[randomAlternative][0])
 

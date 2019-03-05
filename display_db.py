@@ -65,6 +65,14 @@ class DisplayDB:
         substituteP = ("""SELECT idProduct, product_name, nutriscore, store, ingredients, url FROM Product WHERE Category_id = (%s) AND nutriscore = 'B' OR 'b'""")
         cursor.execute(substituteP, (categ, ))
         substituteDetails = cursor.fetchall()
+        if substituteDetails == []:
+          substituteP = ("""SELECT idProduct, product_name, nutriscore, store, ingredients, url FROM Product WHERE Category_id = (%s) AND nutriscore = 'C' OR 'c'""")
+          cursor.execute(substituteP, (categ, ))
+          substituteDetails = cursor.fetchall()
+          if substituteDetails == []:
+            substituteP = ("""SELECT idProduct, product_name, nutriscore, store, ingredients, url FROM Product WHERE Category_id = (%s) AND nutriscore = 'D' OR 'd'""")
+            cursor.execute(substituteP, (categ, ))
+            substituteDetails = cursor.fetchall()
       randomAlternative = random.randint(0, len(substituteDetails)-1)
       info = ["Référence: ", "Produit: ", "Nutrigrade: ", "Où l'acheter: ","Ingredients: ", "URL: "]
       counter = 0
