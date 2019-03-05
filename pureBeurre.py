@@ -83,6 +83,7 @@ while MENUSCREEN:
         print("-------------------------------------------------------------\n")
     elif favorite == 'O':
       print("inserting....")
+      display.AddAlternative()
 
   elif choice == 2:
     sql2 = ("""SELECT * FROM Substitute""")
@@ -101,6 +102,9 @@ while MENUSCREEN:
         MENUSCREEN = 0
       else:
         print("-------------------------------------------------------------\n")
+    else:
+      DISPLAYSUB = DisplaySub()
+      DISPLAYSUB.SubstituteList()
 
 
 newdatabase = DatabaseP()

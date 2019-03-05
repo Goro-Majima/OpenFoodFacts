@@ -17,10 +17,17 @@ except mysql.connector.Error as err:
 
 cursor = conn.cursor()
 
-class Substitution:
-  def insertdb(self,element):
-    # insertit = ("""INSERT INTO Substitute(product_id) VALUES (%s)""")
-    # cursor.execute(insertit, (substituteDetails[randomAlternative],))
-    # conn.commit()
-    print(substituteDetails[randomAlternative][0])
-
+class DisplaySub:
+  def SubstituteList(self):
+    watchsub = ("""SELECT idproduct, product_name, nutriscore, store, ingredients, url FROM Product \
+    INNER JOIN Substitute ON Substitute.product_id = Product.idproduct WHERE product_id = idproduct """)
+    cursor.execute(watchsub)
+    WATCHSUB = cursor.fetchall()
+    info = ["Référence: ", "Produit: ", "Nutrigrade: ", "Où l'acheter: ","Ingredients: ", "URL: "]
+    counterRow2 = 0
+    for watchsubRow in WATCHSUB:
+      for row in watchsubRow:
+        print(info[counterRow2], row)
+        counterRow2 = counterRow2 + 1
+      print("--------------------------------------------------------------------------")
+      

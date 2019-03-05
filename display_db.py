@@ -18,6 +18,7 @@ cursor = conn.cursor()
 class UserIntro:
     # Start the interaction with users.
     def Introduction(self):
+        print("---------------------------------------------------------------------")
         print("BIENVENUE SUR LE PORTAIL DU BIEN ETRE \n")
 
     def Choices(self):
@@ -25,7 +26,8 @@ class UserIntro:
         print("2 - Retrouver mes aliments substitués.\n")
         
 class DisplayDB:
-
+    def __init__(self):
+      self.substituteDetails = [1]
     def ShowCategory(self):
       print("")
       print("Quelle catégorie d'aliments ? ")
@@ -58,6 +60,7 @@ class DisplayDB:
           counterRow = counterRow + 1
       
     def ShowAlternative(self, categ):
+      
       substituteP = ("""SELECT idProduct, product_name, nutriscore, store,ingredients, url FROM Product WHERE Category_id = (%s) AND nutriscore = 'A' or 'a'""")
       cursor.execute(substituteP, (categ, ))
       substituteDetails = cursor.fetchall()
@@ -79,4 +82,13 @@ class DisplayDB:
       for productrow in substituteDetails[randomAlternative]:
         print(info[counter], productrow)
         counter = counter + 1
-    
+      print(substituteDetails[randomAlternative][0])
+      self.substituteDetails = substituteDetails[randomAlternative]
+      return self.substituteDetails
+
+    def AddAlternative(self):
+      print(self.substituteDetails[0])
+      insertit = ("""INSERT INTO Substitute(product_id) VALUES (%s)""")
+      cursor.execute(insertit, (self.substituteDetails[0], ))
+      conn.commit()
+      
