@@ -26,8 +26,9 @@ class DisplaySub:
     info = ["Référence: ", "Produit: ", "Nutrigrade: ", "Où l'acheter: ","Ingredients: ", "URL: "]
     counterRow2 = 0
     for watchsubRow in WATCHSUB:
+      print("")
       for row in watchsubRow:
         print(info[counterRow2], row)
         counterRow2 = counterRow2 + 1
       print("--------------------------------------------------------------------------")
-      
+      counterRow2 = 0

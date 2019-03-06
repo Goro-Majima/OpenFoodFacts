@@ -12,6 +12,11 @@ from insert_favorite import *
 connect = Connect()
 connect.connecttoDB()
 
+newdatabase = DatabaseP()
+""" Already filled"""
+#newdatabase.fill_table_category()
+#newdatabase.fill_table_product()
+
 MENUSCREEN = 1
 while MENUSCREEN:
   user = UserIntro()
@@ -105,12 +110,6 @@ while MENUSCREEN:
     else:
       DISPLAYSUB = DisplaySub()
       DISPLAYSUB.SubstituteList()
-
-
-newdatabase = DatabaseP()
-""" Already filled"""
-#newdatabase.fill_table_category()
-#newdatabase.fill_table_product()
 
 conn.commit()
 conn.close()

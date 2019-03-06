@@ -34,8 +34,8 @@ class DatabaseP:
           if count < 50:  
             if 'product_name' in products:
               if 'stores' in products:
-                if 'nutrition_grade_fr' in products:
-                  if 'ingredients_text_debug' in products:
+                if 'ingredients_text_debug' in products:
+                  if 'nutrition_grade_fr' in products:
                     if 'url' in products:    
                       productload = """INSERT INTO Product(product_name, nutriscore, store, ingredients, url, category_id) \
                         VALUES ( %s,%s,%s,%s,%s,%s) """ 
