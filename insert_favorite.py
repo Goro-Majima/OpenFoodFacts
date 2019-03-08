@@ -15,9 +15,9 @@ except mysql.connector.Error as erratum:
     else:
         print(erratum)
 
-CURSOR = conn.cursor()
+CURSOR = CONN.cursor()
 
-class DisplaySub:
+class Displaysub:
     '''Class related to the table Substitute and its content'''
     def substitutelist(self):
         '''Request and show data from data base to the user'''
@@ -25,7 +25,7 @@ class DisplaySub:
         FROM Product INNER JOIN Substitute ON Substitute.product_id = Product.idproduct \
         WHERE product_id = idproduct """)
         CURSOR.execute(watchsub)
-        watchsub = cursor.fetchall()
+        watchsub = CURSOR.fetchall()
         info = ["Référence: ", "Produit: ", "Nutrigrade: ", "Où l'acheter: "\
           , "Ingredients: ", "URL: "]
         counterrow2 = 0

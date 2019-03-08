@@ -40,8 +40,8 @@ class DatabaseP:
         """fill category table"""
         for name in CATEGORYNAME:
             categoryload = """INSERT INTO Category(name_category) VALUES(%s)"""
-            cursor.execute(categoryload, (name,))
-            conn.commit()
+            CURSOR.execute(categoryload, (name,))
+            CONN.commit()
 
     def fill_table_product(self):
         """Getting the data from the json url, the loop is going through \
@@ -68,7 +68,7 @@ class DatabaseP:
                                         if "url" in products:
                                             productload = """INSERT INTO Product(product_name, nutriscore, \
                                             store, ingredients, url, category_id) VALUES ( %s,%s,%s,%s,%s,%s) """
-                                            cursor.execute(
+                                            CURSOR.execute(
                                                 productload,
                                                 (
                                                     products["product_name"],
@@ -79,7 +79,7 @@ class DatabaseP:
                                                     idcat,
                                                 ),
                                             )
-                                            conn.commit()
+                                            CONN.commit()
                                             count = count + 1
                                             print(count)
             idcat = idcat + 1

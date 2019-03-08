@@ -1,9 +1,9 @@
-import mysql.connector
-import requests as req
+'''Regroup functions that display all datas from the local base according, also insert substitutes'''
 import random
+import mysql.connector
 
 try:
-    conn = mysql.connector.connect(
+    CONN = mysql.connector.connect(
         host="localhost",
         user="student",
         password="mot_de_passe",
@@ -17,54 +17,60 @@ except mysql.connector.Error as err:
     else:
         print(err)
 
-cursor = conn.cursor()
+CURSOR = CONN.cursor()
 
 
-class UserIntro:
-    # Start the interaction with users.
-    def Introduction(self):
+class Userintro:
+    ''' Start the interaction with users.'''
+    def introduction(self):
+        ''' display the welcome text'''
         print("---------------------------------------------------------------------")
         print("BIENVENUE SUR LE PORTAIL DU BIEN ETRE \n")
 
-    def Choices(self):
+    def choices(self):
+        '''display input choice'''
         print("1 - Quel aliment souhaitez-vous remplacer ?")
         print("2 - Retrouver mes aliments substitués.\n")
 
 
-class DisplayDB:
+class Displaydb:
+    '''Display category, product tables to the user'''
     def __init__(self):
-        self.substituteDetails = [1]
+        self.substitutedetails = []
 
-    def ShowCategory(self):
+    def showcategory(self):
+        '''show category list to user'''
         print("")
         print("Quelle catégorie d'aliments ? ")
         for i in range(1, 21):
-            categList = """SELECT idCategory, name_category FROM Category WHERE idCategory = (%s)"""
-            cursor.execute(categList, (i,))
-            catList = cursor.fetchall()
-            for detailCat in catList:
-                print(detailCat[0], "-", detailCat[1])
+            categlist = """SELECT idCategory, name_category FROM Category WHERE idCategory = (%s)"""
+            CURSOR.execute(categlist, (i,))
+            catlist = CURSOR.fetchall()
+            for detailcat in catlist:
+                print(detailcat[0], "-", detailcat[1])
 
-    def ShowProducts(self, categ):
+    def showproducts(self, categ):
+        '''show all products from the category user choose'''
         print("Liste des produits de la catégorie: \n")
-        productList = (
+        productlist = (
             """SELECT idproduct, product_name FROM Product WHERE Category_id = (%s)"""
         )
-        cursor.execute(productList, (categ,))
-        productListrequest = cursor.fetchall()
+        CURSOR.execute(productlist, (categ,))
+        productlistrequest = CURSOR.fetchall()
         indexproduct = 0
-        for i in productListrequest:
+        for i in productlistrequest:
             print(
-                productListrequest[indexproduct][0],
+                productlistrequest[indexproduct][0],
                 "-",
-                productListrequest[indexproduct][1],
+                productlistrequest[indexproduct][1],
             )
             indexproduct = indexproduct + 1
 
-    def ShowProductdetails(self, whichproduct):
-        productDetails = """SELECT idproduct, product_name, nutriscore, store, ingredients, url FROM Product WHERE idproduct = (%s)"""
-        cursor.execute(productDetails, (whichproduct,))
-        productDetailsRow = cursor.fetchall()
+    def showproductdetails(self, whichproduct):
+        '''show all details of chosen product'''
+        productdetails = """SELECT idproduct, product_name, nutriscore, store, ingredients, url FROM Product WHERE idproduct = (%s)"""
+        CURSOR.execute(productdetails, (whichproduct,))
+        productdetailsrow = CURSOR.fetchall()
         info = [
             "Référence: ",
             "Produit: ",
@@ -73,30 +79,30 @@ class DisplayDB:
             "Ingredients: ",
             "URL: ",
         ]
-        counterRow = 0
-        for productRow in productDetailsRow:
-            for row in productRow:
-                print(info[counterRow], row)
-                counterRow = counterRow + 1
+        counterrow = 0
+        for productrow in productdetailsrow:
+            for row in productrow:
+                print(info[counterrow], row)
+                counterrow = counterrow + 1
 
-    def ShowAlternative(self, categ):
-
-        substituteP = """SELECT idProduct, product_name, nutriscore, store,ingredients, url FROM Product WHERE Category_id = (%s) AND nutriscore = 'A' or 'a'"""
-        cursor.execute(substituteP, (categ,))
-        substituteDetails = cursor.fetchall()
-        if substituteDetails == []:
-            substituteP = """SELECT idProduct, product_name, nutriscore, store, ingredients, url FROM Product WHERE Category_id = (%s) AND nutriscore = 'B' OR 'b'"""
-            cursor.execute(substituteP, (categ,))
-            substituteDetails = cursor.fetchall()
-            if substituteDetails == []:
-                substituteP = """SELECT idProduct, product_name, nutriscore, store, ingredients, url FROM Product WHERE Category_id = (%s) AND nutriscore = 'C' OR 'c'"""
-                cursor.execute(substituteP, (categ,))
-                substituteDetails = cursor.fetchall()
-                if substituteDetails == []:
-                    substituteP = """SELECT idProduct, product_name, nutriscore, store, ingredients, url FROM Product WHERE Category_id = (%s) AND nutriscore = 'D' OR 'd'"""
-                    cursor.execute(substituteP, (categ,))
-                    substituteDetails = cursor.fetchall()
-        randomAlternative = random.randint(0, len(substituteDetails) - 1)
+    def showalternative(self, categ):
+        ''' Recommend a better nutrigrade product from the same category'''
+        substitutep = """SELECT idProduct, product_name, nutriscore, store,ingredients, url FROM Product WHERE Category_id = (%s) AND nutriscore = 'A' or 'a'"""
+        CURSOR.execute(substitutep, (categ,))
+        substitutedetails = CURSOR.fetchall()
+        if substitutedetails == []:
+            substitutep = """SELECT idProduct, product_name, nutriscore, store, ingredients, url FROM Product WHERE Category_id = (%s) AND nutriscore = 'B' OR 'b'"""
+            CURSOR.execute(substitutep, (categ,))
+            substitutedetails = CURSOR.fetchall()
+            if substitutedetails == []:
+                substitutep = """SELECT idProduct, product_name, nutriscore, store, ingredients, url FROM Product WHERE Category_id = (%s) AND nutriscore = 'C' OR 'c'"""
+                CURSOR.execute(substitutep, (categ,))
+                substitutedetails = CURSOR.fetchall()
+                if substitutedetails == []:
+                    substitutep = """SELECT idProduct, product_name, nutriscore, store, ingredients, url FROM Product WHERE Category_id = (%s) AND nutriscore = 'D' OR 'd'"""
+                    CURSOR.execute(substitutep, (categ,))
+                    substitutedetails = CURSOR.fetchall()
+        randomalternative = random.randint(0, len(substitutedetails) - 1)
         info = [
             "Référence: ",
             "Produit: ",
@@ -106,16 +112,16 @@ class DisplayDB:
             "URL: ",
         ]
         counter = 0
-        for productrow in substituteDetails[randomAlternative]:
+        for productrow in substitutedetails[randomalternative]:
             print(info[counter], productrow)
             counter = counter + 1
-        print(substituteDetails[randomAlternative][0])
-        self.substituteDetails = substituteDetails[randomAlternative]
-        return self.substituteDetails
+        print(substitutedetails[randomalternative][0])
+        self.substitutedetails = substitutedetails[randomalternative]
+        return self.substitutedetails
 
-    def AddAlternative(self):
-        print(self.substituteDetails[0])
+    def addalternative(self):
+        '''add the recommended product to a list of substitute into the table substitute'''
+        print(self.substitutedetails[0])
         insertit = """INSERT INTO Substitute(product_id) VALUES (%s)"""
-        cursor.execute(insertit, (self.substituteDetails[0],))
-        conn.commit()
-
+        CURSOR.execute(insertit, (self.substitutedetails[0],))
+        CONN.commit()

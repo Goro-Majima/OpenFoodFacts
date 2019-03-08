@@ -1,58 +1,58 @@
 # -*- coding: utf-8 -*-
-
+'''Starting program that calls insert and display functions from other file '''
+import json
 import mysql.connector
 import requests as req
-import json
 from display_db import *
 from database_init import *
 from connexion import *
 from insert_favorite import *
 
-connect = Connect()
-connect.connecttodb()
+CONNECT = Connect()
+CONNECT.connecttodb()
 
-newdatabase = DatabaseP()
+NEWDATABASE = DatabaseP()
 """ Already filled"""
 # newdatabase.fill_table_category()
 # newdatabase.fill_table_product()
 
 MENUSCREEN = 1
 while MENUSCREEN:
-    user = UserIntro()
-    user.Introduction()
-    user.Choices()
-    choice = 0
+    USER = Userintro()
+    USER.introduction()
+    USER.choices()
+    CHOICE = 0
 
-    while choice != 1 and choice != 2:
+    while CHOICE not in (1, 2):
         try:
-            choice = int(input("Veuillez choisir entre requête 1 ou 2:\n"))
+            CHOICE = int(input("Veuillez choisir entre requête 1 ou 2:\n"))
         except ValueError:
             print("Mauvaise commande, choisir 1 ou 2")
 
-    if choice == 1:
+    if CHOICE == 1:
         # User wants to see the category list
-        display = DisplayDB()
-        display.ShowCategory()
+        DISPLAY = Displaydb()
+        DISPLAY.showcategory()
 
         print("")
-        categ = -1
-        while categ < 0 or categ > 20:
+        CATEG = -1
+        while CATEG < 0 or CATEG > 20:
             # User choose which category
             try:
-                categ = int(input("Sélectionnez la catégorie entre 1 et 20:  \n"))
+                CATEG = int(input("Sélectionnez la catégorie entre 1 et 20:  \n"))
             except ValueError:
                 print("Mauvaise commande, choisir entre 1 et 20")
         print("")
 
-        display.ShowProducts(categ)
+        DISPLAY.showproducts(CATEG)
 
         print("")
         # Put an error message if input different than product list
         # loop with verification from database
-        whichproduct = 0
-        while whichproduct < (categ * 50) - 49 or whichproduct > categ * 50:
+        WHICHPRODUCT = 0
+        while WHICHPRODUCT < (CATEG * 50) - 49 or WHICHPRODUCT > CATEG * 50:
             try:
-                whichproduct = int(
+                WHICHPRODUCT = int(
                     input("Sélectionnez l'aliment à remplacer dans sa catégorie:  \n")
                 )
                 print("")
@@ -63,56 +63,56 @@ while MENUSCREEN:
         print("-----------------------------------------------------------")
         print("Votre sélection: ")
         print("")
-        display.ShowProductdetails(whichproduct)
+        DISPLAY.showproductdetails(WHICHPRODUCT)
 
         print("")
         print("-----------------------------------------------------------")
         print("Produit alternatif: \n")
 
-        display.ShowAlternative(categ)
+        DISPLAY.showalternative(CATEG)
         print("")
 
-        favorite = input("Souhaitez-vous ajouter cet aliment à vos favoris ? O/N \n")
-        while favorite != "N" and favorite != "O":
+        FAVORITE = input("Souhaitez-vous ajouter cet aliment à vos favoris ? O/N \n")
+        while FAVORITE not in ('N', 'O'):
             print("Mauvaise commande, tnapez O pour OUI, N pour NON\n")
-            favorite = input(
+            FAVORITE = input(
                 "Souhaitez-vous ajouter cet aliment à vos favoris ? O/N \n"
             )
-        if favorite == "N":
-            backtomenu = input("Revenir à l'accueil ?\n")
-            while backtomenu != "N" and backtomenu != "O":
+        if FAVORITE == "N":
+            BACKTOMENU = input("Revenir à l'accueil ?\n")
+            while BACKTOMENU not in ('N', 'O'):
                 print("Mauvaise commande, tnapez O pour OUI, N pour NON\n")
-                backtomenu = input("Revenir à l'accueil ? O ou N\n")
-            if backtomenu == "N":
+                BACKTOMENU = input("Revenir à l'accueil ? O ou N\n")
+            if BACKTOMENU == "N":
                 print("")
                 print("Merci d'avoir utilisé la plateforme ! A la prochaine !")
                 MENUSCREEN = 0
             else:
                 print("-------------------------------------------------------------\n")
-        elif favorite == "O":
-            print("inserting....")
-            display.AddAlternative()
+        elif FAVORITE == "O":
+            print("insertion....")
+            DISPLAY.addalternative()
 
-    elif choice == 2:
-        sql2 = """SELECT * FROM Substitute"""
-        cursor.execute(sql2)
-        res2 = cursor.fetchall()
-        if res2 == []:
+    elif CHOICE == 2:
+        REQSUB = """SELECT * FROM Substitute"""
+        CURSOR.execute(REQSUB)
+        REQSUB = CURSOR.fetchall()
+        if REQSUB == []:
             print("Il n'y a aucun produit alternatif. \n")
             print("-----------------------------------------------")
-            backtomenu2 = input("Revenir à l'accueil ?\n")
-            while backtomenu2 != "N" and backtomenu2 != "O":
+            BACKTOMENU2 = input("Revenir à l'accueil ?\n")
+            while BACKTOMENU2 not in ('O', 'N'):
                 print("Mauvaise commande, tnapez O pour OUI, N pour NON\n")
-                backtomenu2 = input("Revenir à l'accueil ? O ou N\n")
-            if backtomenu2 == "N":
+                BACKTOMENU2 = input("Revenir à l'accueil ? O ou N\n")
+            if BACKTOMENU2 == "N":
                 print("")
                 print("Merci d'avoir utilisé la plateforme ! A la prochaine !")
                 MENUSCREEN = 0
             else:
                 print("-------------------------------------------------------------\n")
         else:
-            DISPLAYSUB = DisplaySub()
+            DISPLAYSUB = Displaysub()
             DISPLAYSUB.substitutelist()
 
-conn.commit()
-conn.close()
+CONN.commit()
+CONN.close()
