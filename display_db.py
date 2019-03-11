@@ -118,19 +118,22 @@ class Displaydb:
             "URL: ",
         ]
         counter = 0
+        #Check if same nutrigrade between product and random substitute ==> no substitute returned
         if self.productdetailsrow[0][2] == substitutedetails[randomalternative][2]:
-            print("Pas de substitut proposé car nutrigrade équivalent")
+            print("Pas de substitut proposé car nutrigrade équivalent.")
+            self.substitutedetails = []
         else:
             for productrow in substitutedetails[randomalternative]:
                 print(info[counter], productrow)
-                counter = counter + 1
-            print(substitutedetails[randomalternative][0])
-        
+                counter = counter + 1        
         return self.substitutedetails
 
     def addalternative(self):
         '''add the recommended product to a list of substitute into the table substitute'''
-        print(self.substitutedetails[0])
-        insertit = """INSERT INTO Substitute(product_id, previous_id) VALUES (%s, %s)"""
-        CURSOR.execute(insertit, (self.substitutedetails[0], self.productdetailsrow[0][0]))
-        CONN.commit()
+        if self.substitutedetails == []:
+            print("\nImpossible d'ajouter aux favoris\n")
+        else:
+            print("insertion....")
+            insertit = """INSERT INTO Substitute(product_id, previous_id) VALUES (%s, %s)"""
+            CURSOR.execute(insertit, (self.substitutedetails[0], self.productdetailsrow[0][0]))
+            CONN.commit()

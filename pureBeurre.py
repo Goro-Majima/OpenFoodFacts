@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-'''Starting program that calls insert and display functions from other file '''
+"""Starting program that calls insert and display functions from other file """
 import json
 import mysql.connector
 import requests as req
@@ -56,7 +56,7 @@ while MENUSCREEN:
                 print("")
             except ValueError:
                 print("Mauvaise commande, choisir aliment\n\n")
-            
+
         print("-----------------------------------------------------------")
         print("Votre sélection: \n")
         DISPLAY.showproductdetails(WHICHPRODUCT)
@@ -65,28 +65,25 @@ while MENUSCREEN:
         print("Produit alternatif: \n")
 
         DISPLAY.showalternative(CATEG)
-
-        FAVORITE = input("\nSouhaitez-vous ajouter cet aliment à vos favoris ? O/N \n")
-        while FAVORITE not in ('N', 'O'):
+        FAVORITE = input("\nSouhaitez-vous ajouter cet aliment à vos favoris ? O pour OUI, N si pas de substitut \n")
+        while FAVORITE not in ("N", "O"):
             print("Mauvaise commande, tnapez O pour OUI, N pour NON\n")
             FAVORITE = input(
                 "Souhaitez-vous ajouter cet aliment à vos favoris ? O/N \n"
             )
         if FAVORITE == "N":
             BACKTOMENU = input("\nRevenir à l'accueil ?\n")
-            while BACKTOMENU not in ('N', 'O'):
+            while BACKTOMENU not in ("N", "O"):
                 print("Mauvaise commande, tnapez O pour OUI, N pour NON\n")
                 BACKTOMENU = input("Revenir à l'accueil ? O ou N\n")
             if BACKTOMENU == "N":
-                print("")
-                print("Merci d'avoir utilisé la plateforme ! A la prochaine !")
+                print("\nMerci d'avoir utilisé la plateforme ! A la prochaine !")
                 MENUSCREEN = 0
             else:
                 print("-------------------------------------------------------------\n")
         elif FAVORITE == "O":
-            print("insertion....")
             DISPLAY.addalternative()
-
+    
     elif CHOICE == 2:
         REQSUB = """SELECT * FROM Substitute"""
         CURSOR.execute(REQSUB)
@@ -95,7 +92,7 @@ while MENUSCREEN:
             print("\nIl n'y a aucun produit alternatif. \n")
             print("-----------------------------------------------")
             BACKTOMENU2 = input("Revenir à l'accueil ?\n")
-            while BACKTOMENU2 not in ('O', 'N'):
+            while BACKTOMENU2 not in ("O", "N"):
                 print("Mauvaise commande, tnapez O pour OUI, N pour NON\n")
                 BACKTOMENU2 = input("Revenir à l'accueil ? O ou N\n")
             if BACKTOMENU2 == "N":
@@ -107,6 +104,13 @@ while MENUSCREEN:
         else:
             DISPLAYSUB = Displaysub()
             DISPLAYSUB.substitutelist()
-
+            BACKTOMENU2 = input("Revenir à l'accueil ?\n")
+            while BACKTOMENU2 not in ("O", "N"):
+                print("Mauvaise commande, tnapez O pour OUI, N pour NON\n")
+                BACKTOMENU2 = input("Revenir à l'accueil ? O ou N\n")
+            if BACKTOMENU2 == "N":
+                print("")
+                print("Merci d'avoir utilisé la plateforme ! A la prochaine !")
+                MENUSCREEN = 0
 CONN.commit()
 CONN.close()
