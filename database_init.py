@@ -41,6 +41,7 @@ class DatabaseP:
         for name in CATEGORYNAME:
             categoryload = """INSERT INTO Category(name_category) VALUES(%s)"""
             CURSOR.execute(categoryload, (name,))
+            # Make sure data is committed to the database
             CONN.commit()
 
     def fill_table_product(self):

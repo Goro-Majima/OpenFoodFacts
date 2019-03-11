@@ -41,45 +41,39 @@ while MENUSCREEN:
             try:
                 CATEG = int(input("Sélectionnez la catégorie entre 1 et 20:  \n"))
             except ValueError:
-                print("Mauvaise commande, choisir entre 1 et 20")
-        print("")
+                print("Mauvaise commande, choisir entre 1 et 20\n\n")
 
         DISPLAY.showproducts(CATEG)
 
-        print("")
         # Put an error message if input different than product list
         # loop with verification from database
         WHICHPRODUCT = 0
         while WHICHPRODUCT < (CATEG * 50) - 49 or WHICHPRODUCT > CATEG * 50:
             try:
                 WHICHPRODUCT = int(
-                    input("Sélectionnez l'aliment à remplacer dans sa catégorie:  \n")
+                    input("\nSélectionnez l'aliment à remplacer dans sa catégorie:  \n")
                 )
                 print("")
             except ValueError:
-                print("Mauvaise commande, choisir aliment")
-                print("")
-        print("")
+                print("Mauvaise commande, choisir aliment\n\n")
+            
         print("-----------------------------------------------------------")
-        print("Votre sélection: ")
-        print("")
+        print("Votre sélection: \n")
         DISPLAY.showproductdetails(WHICHPRODUCT)
 
-        print("")
-        print("-----------------------------------------------------------")
+        print("\n-----------------------------------------------------------")
         print("Produit alternatif: \n")
 
         DISPLAY.showalternative(CATEG)
-        print("")
 
-        FAVORITE = input("Souhaitez-vous ajouter cet aliment à vos favoris ? O/N \n")
+        FAVORITE = input("\nSouhaitez-vous ajouter cet aliment à vos favoris ? O/N \n")
         while FAVORITE not in ('N', 'O'):
             print("Mauvaise commande, tnapez O pour OUI, N pour NON\n")
             FAVORITE = input(
                 "Souhaitez-vous ajouter cet aliment à vos favoris ? O/N \n"
             )
         if FAVORITE == "N":
-            BACKTOMENU = input("Revenir à l'accueil ?\n")
+            BACKTOMENU = input("\nRevenir à l'accueil ?\n")
             while BACKTOMENU not in ('N', 'O'):
                 print("Mauvaise commande, tnapez O pour OUI, N pour NON\n")
                 BACKTOMENU = input("Revenir à l'accueil ? O ou N\n")
@@ -98,7 +92,7 @@ while MENUSCREEN:
         CURSOR.execute(REQSUB)
         REQSUB = CURSOR.fetchall()
         if REQSUB == []:
-            print("Il n'y a aucun produit alternatif. \n")
+            print("\nIl n'y a aucun produit alternatif. \n")
             print("-----------------------------------------------")
             BACKTOMENU2 = input("Revenir à l'accueil ?\n")
             while BACKTOMENU2 not in ('O', 'N'):

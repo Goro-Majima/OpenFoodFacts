@@ -20,7 +20,7 @@ CURSOR = CONN.cursor()
 class Displaysub:
     '''Class related to the table Substitute and its content'''
     def substitutelist(self):
-        '''Request and show data from data base to the user'''
+        '''Query and show previous products chosen by the user'''
         watchsub = ("""SELECT idproduct, product_name, nutriscore, store, ingredients, url \
         FROM Product INNER JOIN Substitute ON Substitute.product_id = Product.idproduct \
         WHERE product_id = idproduct """)
@@ -30,9 +30,27 @@ class Displaysub:
           , "Ingredients: ", "URL: "]
         counterrow2 = 0
         for watchsubrow in watchsub:
-            print("")
+            print("\nSubstitut: \n")
             for row in watchsubrow:
                 print(info[counterrow2], row)
                 counterrow2 = counterrow2 + 1
             print("--------------------------------------------------------------------------")
             counterrow2 = 0
+        
+        watchprev = ("""SELECT idproduct, product_name, nutriscore \
+        FROM Product INNER JOIN Substitute ON Substitute.previous_id = Product.idproduct \
+        WHERE previous_id = idproduct """)
+        CURSOR.execute(watchprev)
+        watchprev = CURSOR.fetchall()
+        info = ["Référence: ", "Produit: ", "Nutrigrade: "]
+        counterrow3 = 0
+        for watchprevrow in watchprev:
+            print("\nRemplacé: \n")
+            for row in watchprevrow:
+                print(info[counterrow3], row)
+                counterrow3 = counterrow3 + 1
+            print("--------------------------------------------------------------------------")
+            counterrow3 = 0
+
+    
+       

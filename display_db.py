@@ -37,6 +37,7 @@ class Displaydb:
     '''Display category, product tables to the user'''
     def __init__(self):
         self.substitutedetails = []
+        self.productdetailsrow = []
 
     def showcategory(self):
         '''show category list to user'''
@@ -84,6 +85,10 @@ class Displaydb:
             for row in productrow:
                 print(info[counterrow], row)
                 counterrow = counterrow + 1
+        self.productdetailsrow = productdetailsrow
+        print(self.productdetailsrow[0][0])
+        return self.productdetailsrow
+        
 
     def showalternative(self, categ):
         ''' Recommend a better nutrigrade product from the same category'''
@@ -103,6 +108,7 @@ class Displaydb:
                     CURSOR.execute(substitutep, (categ,))
                     substitutedetails = CURSOR.fetchall()
         randomalternative = random.randint(0, len(substitutedetails) - 1)
+        self.substitutedetails = substitutedetails[randomalternative]
         info = [
             "Référence: ",
             "Produit: ",
@@ -112,16 +118,19 @@ class Displaydb:
             "URL: ",
         ]
         counter = 0
-        for productrow in substitutedetails[randomalternative]:
-            print(info[counter], productrow)
-            counter = counter + 1
-        print(substitutedetails[randomalternative][0])
-        self.substitutedetails = substitutedetails[randomalternative]
+        if self.productdetailsrow[0][2] == substitutedetails[randomalternative][2]:
+            print("Pas de substitut proposé car nutrigrade équivalent")
+        else:
+            for productrow in substitutedetails[randomalternative]:
+                print(info[counter], productrow)
+                counter = counter + 1
+            print(substitutedetails[randomalternative][0])
+        
         return self.substitutedetails
 
     def addalternative(self):
         '''add the recommended product to a list of substitute into the table substitute'''
         print(self.substitutedetails[0])
-        insertit = """INSERT INTO Substitute(product_id) VALUES (%s)"""
-        CURSOR.execute(insertit, (self.substitutedetails[0],))
+        insertit = """INSERT INTO Substitute(product_id, previous_id) VALUES (%s, %s)"""
+        CURSOR.execute(insertit, (self.substitutedetails[0], self.productdetailsrow[0][0]))
         CONN.commit()
