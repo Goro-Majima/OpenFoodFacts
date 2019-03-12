@@ -22,7 +22,7 @@ The user is on terminal. The following choices are displayed:
 - User is able to save it or not in his favorites.
 - Possibility to be back to the menu list or leave.
 
-###User choose 2:
+##User choose 2:
 - If nothing in favorite user base, message instead of db.
 - Display of favorite/"bad" product with their respective details.
 - Ordered by time (Last on list is recorded last)
@@ -50,9 +50,9 @@ bdd off.mwb: Schema of the db created, represented with related tables, its fiel
 
 scriptstables.sql: SQL Script related to the database created.
 
-#How to use it ?
+##How to use it ?
 
-###Package management:
+##Package management:
 - Download mysql server
 - install a text editor such as sublime text 3 or Visual studio code
 - install python 3.7 on your text editor 
@@ -62,13 +62,13 @@ scriptstables.sql: SQL Script related to the database created.
 
 - Clone the repository or copy the url 
 - Set the database from the command line:
-    set path(try "set PATH=%PATH%;C:\"Program Files"\MySQL\"MySQL Server 8.0"\bin")
-    Create the database by using scriptstables.sql through its path. 
-    Use the id and password you set when you installed mysql
-    Create a new user with user= "student" and password = 'mot_de_passe'. If you want to use other word, also change in all files.
-    Grant all privilege to this user for this db. 
+- set path(try "set PATH=%PATH%;C:\"Program Files"\MySQL\"MySQL Server 8.0"\bin")
+- Create the database by using scriptstables.sql through its path. 
+- Use the id and password you set when you installed mysql
+- Create a new user with user= "student" and password = 'mot_de_passe'. If you want to use other word, also change in all files.
+- Grant all privilege to this user for this db. 
 
-- open with the text editor and execute file pure_beurre.py (F5)
+- open with the text editor and execute purebeurre.py
 
 
 
