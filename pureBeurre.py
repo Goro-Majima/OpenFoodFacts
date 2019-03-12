@@ -10,15 +10,16 @@ from insert_favorite import *
 
 CONNECT = Connect()
 CONNECT.connecttodb()
-'''query used to check if filling is needed'''
-checkifempty = '''SELECT * FROM Category'''
-CURSOR.execute(checkifempty)
-alltables = CURSOR.fetchall()
-if alltables == []:
+#query used to check if filling is needed
+CHECKIFEMPTY = '''SELECT * FROM Category'''
+CURSOR.execute(CHECKIFEMPTY)
+ALLTABLES = CURSOR.fetchall()
+
+if ALLTABLES == []:
     NEWDATABASE = DatabaseP()
     #Already filled
-    newdatabase.fill_table_category()
-    #newdatabase.fill_table_product()
+    NEWDATABASE.fill_table_category()
+    NEWDATABASE.fill_table_product()
 
 MENUSCREEN = 1
 while MENUSCREEN:
@@ -87,7 +88,6 @@ while MENUSCREEN:
                 print("-------------------------------------------------------------\n")
         elif FAVORITE == "O":
             DISPLAY.addalternative()
-    
     elif CHOICE == 2:
         REQSUB = """SELECT * FROM Substitute"""
         CURSOR.execute(REQSUB)

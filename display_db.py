@@ -88,7 +88,6 @@ class Displaydb:
         self.productdetailsrow = productdetailsrow
         print(self.productdetailsrow[0][0])
         return self.productdetailsrow
-        
 
     def showalternative(self, categ):
         ''' Recommend a better nutrigrade product from the same category'''
@@ -125,7 +124,7 @@ class Displaydb:
         else:
             for productrow in substitutedetails[randomalternative]:
                 print(info[counter], productrow)
-                counter = counter + 1        
+                counter = counter + 1
         return self.substitutedetails
 
     def addalternative(self):
