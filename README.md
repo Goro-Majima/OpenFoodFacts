@@ -9,7 +9,7 @@ The user is on terminal. The following choices are displayed:
 1- Which product would you like to switch ?
 2- Get my substituted products.
 
-###User choose 1: 
+User choose 1: 
 - Display of 20 categories.
 - The program ask you to select a category. If input not an integer or out of range, display of error message.
 - User select a category.
@@ -22,7 +22,7 @@ The user is on terminal. The following choices are displayed:
 - User is able to save it or not in his favorites.
 - Possibility to be back to the menu list or leave.
 
-##User choose 2:
+User choose 2:
 - If nothing in favorite user base, message instead of db.
 - Display of favorite/"bad" product with their respective details.
 - Ordered by time (Last on list is recorded last)
@@ -50,9 +50,9 @@ bdd off.mwb: Schema of the db created, represented with related tables, its fiel
 
 scriptstables.sql: SQL Script related to the database created.
 
-##How to use it ?
+#How to use it ?
 
-##Package management:
+Package management:
 - Download mysql server
 - install a text editor such as sublime text 3 or Visual studio code
 - install python 3.7 on your text editor 
