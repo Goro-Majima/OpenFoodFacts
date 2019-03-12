@@ -10,11 +10,15 @@ from insert_favorite import *
 
 CONNECT = Connect()
 CONNECT.connecttodb()
-
-NEWDATABASE = DatabaseP()
-""" Already filled"""
-# newdatabase.fill_table_category()
-# newdatabase.fill_table_product()
+'''query used to check if filling is needed'''
+checkifempty = '''SELECT * FROM Category'''
+CURSOR.execute(checkifempty)
+alltables = CURSOR.fetchall()
+if alltables == []:
+    NEWDATABASE = DatabaseP()
+    #Already filled
+    newdatabase.fill_table_category()
+    #newdatabase.fill_table_product()
 
 MENUSCREEN = 1
 while MENUSCREEN:

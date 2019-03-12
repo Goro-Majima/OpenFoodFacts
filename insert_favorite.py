@@ -1,4 +1,4 @@
-'''Insert Product in table substitute as favorite'''
+'''Insert an alternative product in table substitute as favorite'''
 import mysql.connector
 from display_db import *
 from database_init import *
