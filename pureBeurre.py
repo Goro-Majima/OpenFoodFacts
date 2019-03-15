@@ -3,8 +3,8 @@
 import json
 import mysql.connector
 import requests as req
-from display_db import *
-from database_init import *
+from displaydb import *
+from databaseinit import *
 from connexion import *
 from displayfavorite import *
 

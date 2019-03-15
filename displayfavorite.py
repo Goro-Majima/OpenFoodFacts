@@ -1,7 +1,7 @@
 '''Insert an alternative product in table substitute as favorite'''
 import mysql.connector
-from display_db import *
-from database_init import *
+from displaydb import *
+from databaseinit import *
 from connexion import *
 
 try:
