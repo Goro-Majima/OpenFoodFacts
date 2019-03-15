@@ -1,21 +1,5 @@
 '''Insert an alternative product in table substitute as favorite'''
-import mysql.connector
-from displaydb import *
-from databaseinit import *
 from connexion import *
-
-try:
-    CONN = mysql.connector.connect(host="localhost", user="student", \
-    password="mot_de_passe", database="pure_beurre")
-except mysql.connector.Error as erratum:
-    if erratum.errno == errorcode.ER_ACCESS_DENIED_ERROR:
-        print("Something is wrong with your user name or password")
-    elif erratum.errno == errorcode.ER_BAD_DB_ERROR:
-        print("Database does not exist")
-    else:
-        print(erratum)
-
-CURSOR = CONN.cursor()
 
 class Displaysub:
     '''Class related to the table Substitute and its content'''
@@ -52,4 +36,4 @@ class Displaysub:
             counterrow3 = 0
             print("--------------------------------------------------------------------------")
             #problème avec l'ordre des produits dans la table substitute, les remplacés ne correspondent pas aux favoris car classé par ordre numérique réparé avec ORDER BY
-    
+        

@@ -1,25 +1,6 @@
 '''Regroup functions that display all datas from the local base according, also insert substitutes'''
 import random
-import mysql.connector
 from connexion import *
-
-try:
-    CONN = mysql.connector.connect(
-        host="localhost",
-        user="student",
-        password="mot_de_passe",
-        database="pure_beurre",
-    )
-except mysql.connector.Error as err:
-    if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
-        print("Something is wrong with your user name or password")
-    elif err.errno == errorcode.ER_BAD_DB_ERROR:
-        print("Database does not exist")
-    else:
-        print(err)
-
-CURSOR = CONN.cursor()
-
 
 class Userintro:
     ''' Start the interaction with users.'''
@@ -137,5 +118,3 @@ class Displaydb:
             insertit = """INSERT INTO Substitute(product_id, previous_id) VALUES (%s, %s)"""
             CURSOR.execute(insertit, (self.substitutedetails[0], self.productdetailsrow[0][0]))
             CONN.commit()
-            CONN.close()
-            

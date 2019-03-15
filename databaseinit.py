@@ -1,13 +1,7 @@
 """file used to fill the table category and product at initialization """
-import json
-import mysql.connector
 import requests as req
 from displaydb import *
 from connexion import *
-
-
-CONNECT = Connect()
-CONNECT.connecttodb()
 
 CATEGORYNAME = [
     "Pizzas",

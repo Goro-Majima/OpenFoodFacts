@@ -1,15 +1,10 @@
 # -*- coding: utf-8 -*-
 """Starting program that calls insert and display functions from other file """
-import json
-import mysql.connector
-import requests as req
 from displaydb import *
 from databaseinit import *
 from connexion import *
 from displayfavorite import *
 
-CONNECT = Connect()
-CONNECT.connecttodb()
 #query used to check if filling is needed
 CHECKIFEMPTY = '''SELECT * FROM Category'''
 CURSOR.execute(CHECKIFEMPTY)
