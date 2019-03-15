@@ -6,7 +6,7 @@ import requests as req
 from display_db import *
 from database_init import *
 from connexion import *
-from insert_favorite import *
+from displayfavorite import *
 
 CONNECT = Connect()
 CONNECT.connecttodb()

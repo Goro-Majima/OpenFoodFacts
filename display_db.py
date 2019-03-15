@@ -1,6 +1,7 @@
 '''Regroup functions that display all datas from the local base according, also insert substitutes'''
 import random
 import mysql.connector
+from connexion import *
 
 try:
     CONN = mysql.connector.connect(
@@ -136,3 +137,5 @@ class Displaydb:
             insertit = """INSERT INTO Substitute(product_id, previous_id) VALUES (%s, %s)"""
             CURSOR.execute(insertit, (self.substitutedetails[0], self.productdetailsrow[0][0]))
             CONN.commit()
+            CONN.close()
+            

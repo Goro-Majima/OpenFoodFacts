@@ -5,7 +5,8 @@ from mysql.connector import errorcode
 
 class Connect:
     """Related to files that need authentication to enter the database"""
-
+    # def __init__(self):
+    #     cursor = self.cursor
     def connecttodb(self):
         """Check authentication in order to use the database pure_beurre"""
         try:
