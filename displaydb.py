@@ -68,7 +68,6 @@ class Displaydb:
                 print(info[counterrow], row)
                 counterrow = counterrow + 1
         self.productdetailsrow = productdetailsrow
-        print(self.productdetailsrow[0][0])
         return self.productdetailsrow
 
     def showalternative(self, categ):
